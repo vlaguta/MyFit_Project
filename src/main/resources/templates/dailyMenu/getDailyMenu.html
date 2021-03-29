@@ -1,0 +1,193 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .inputButton {
+            position: relative;
+            /*width: 20%;*/
+            /*right: 0;*/
+            /*height: 10px;*/
+            display: block;
+            margin: 30px auto 30px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            border-radius: 2px;
+            color: white;
+            background-color: #333;
+            border: none;
+            -webkit-box-shadow: 0 5px 0 #769f96;
+            -moz-box-shadow: 0 5px 0 #082f27;
+        }
+
+        .header {
+            padding: 80px;
+            text-align: center;
+            background: #1abc9c;
+            color: white;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
+
+        .tbl-header {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        table {
+            width: 750px;
+            border-collapse: collapse;
+            margin: 50px auto;
+        }
+
+        th {
+            background: #0a866f;
+            color: white;
+            font-weight: bold;
+        }
+
+        td, th {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+            font-size: 18px;
+        }
+
+        .labels tr td {
+            background-color: #1ABC9C;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .label tr td label {
+            display: block;
+        }
+
+
+        [data-toggle="toggle"] {
+            display: none;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="toggle"]').change(function () {
+                $(this).parents().next('.hide').toggle();
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="header">
+    <h1>MyFit</h1>
+    <p>Здесь должна быть мотивирующая фраза</p>
+</div>
+<div class="navbar">
+    <label></label>
+    <br>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Наименование продукта</th>
+        <th>Калории на 100 г</th>
+        <th>Калории на порцию</th>
+        <th>Белки</th>
+        <th>Жиры</th>
+        <th>Углеводы</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tbody class="labels">
+    <tr>
+        <td colspan="5">
+            <label>Завтрак</label>
+            <div class="inputButton">
+                <form th:action="@{/add}" method="get" >
+                    <button th:name="eating" th:value="BREAKFAST" style="float: right;">Добавить продукт </button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+    <tbody class="hide">
+    <tr th:each="product : ${dailyMenu.breakfast}">
+        <br>
+        <td><span th:text="${product.name}">  </span></td>
+        <td><span th:text="${product.nominalCalories}">  </span></td>
+        <td><span th:text="${product.factualCalories}">  </span></td>
+        <td><span th:text="${product.factualProtein}">  </span></td>
+        <td><span th:text="${product.factualFat}">  </span></td>
+        <td><span th:text="${product.factualCarbonhydrates}">  </span></td>
+    </tr>
+    <tbody class="labels">
+    <tr>
+        <td colspan="5">
+            <label>Обед</label>
+            <div class="inputButton">
+                <form th:action="@{/add}" method="get">
+                    <button th:name="eating" th:value="DINNER" style="float: right;">Добавить продукт </button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+    <tr th:each="product : ${dailyMenu.dinner}">
+        <br>
+        <td><span th:text="${product.name}">  </span></td>
+        <td><span th:text="${product.nominalCalories}">  </span></td>
+        <td><span th:text="${product.factualCalories}">  </span></td>
+        <td><span th:text="${product.factualProtein}">  </span></td>
+        <td><span th:text="${product.factualFat}">  </span></td>
+        <td><span th:text="${product.factualCarbonhydrates}">  </span></td>
+    </tr>
+    <tbody class="labels">
+    <tr>
+        <td colspan="5">
+            <label>Ужин</label>
+            <div class="inputButton">
+                <form th:action="@{/add}" method="get">
+                    <button th:name="eating" th:value="SUPPER" style="float: right;">Добавить продукт </button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+    <tr th:each="product : ${dailyMenu.supper}">
+        <br>
+        <td><span th:text="${product.name}">  </span></td>
+        <td><span th:text="${product.nominalCalories}">  </span></td>
+        <td><span th:text="${product.factualCalories}">  </span></td>
+        <td><span th:text="${product.factualProtein}">  </span></td>
+        <td><span th:text="${product.factualFat}">  </span></td>
+        <td><span th:text="${product.factualCarbonhydrates}">  </span></td>
+    </tr>
+    </tbody>
+    <tbody class="labels">
+    <tr>
+        <td colspan="5">
+            <label>Итого за день</label>
+        </td>
+    </tr>
+    </tbody>
+    <td></td>
+    <td><td><span th:text="${dailyMenu.generalCalories}">  </span></td></td>
+    <td><span th:text="${dailyMenu.generalProteins}">  </span></td>
+    <td><span th:text="${dailyMenu.generalFats}">  </span></td>
+    <td><span th:text="${dailyMenu.generalCarbonhydrates}">  </span></td>
+</table>
+
+<div class="inputButton">
+    <form th:action="@{/profile}" method="get">
+        <input class="inputButton" type="submit" value="Назад"/>
+    </form>
+</div>
+</body>
+</html>

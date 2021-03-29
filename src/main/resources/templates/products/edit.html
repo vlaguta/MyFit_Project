@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New product</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"  crossorigin="anonymous">
+    <style>
+        .header {
+            padding: 80px;
+            text-align: center;
+            background: #1abc9c;
+            color: white;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>MyFit</h1>
+    <p>Здесь должна быть мотивирующая фраза</p>
+</div>
+<div class="navbar">
+</div>
+<form class="pure-form pure-form-aligned" th:method="PATCH" th:action="@{/products/{id}(id=${product.getId()})}" th:object="${product}">
+    <fieldset>
+        <div class="pure-control-group">
+            <label for="name">Название продукта: </label>
+            <input type="text" th:field="*{name}" id="name" placeholder="Название продукта" />
+        </div>
+        <p></p>
+        <div class="pure-control-group">
+            <label for="calories">Калорийность</label>
+            <input type="number"  th:field="*{calories}" id="calories" placeholder="Калорийность" />
+        </div>
+        <p></p>
+
+        <div class="pure-control-group">
+            <label for="protein">Белки</label>
+            <input type="number" th:field="*{protein}" id="protein" placeholder="Белки" />
+        </div>
+        <p></p>
+
+        <div class="pure-control-group">
+            <label for="fat">Жиры</label>
+            <input type="number" th:field="*{fat}" id="fat" placeholder="Жиры" />
+        </div>
+        <p></p>
+
+        <div class="pure-control-group">
+            <label for="carbonhydrates">Углеводы </label>
+            <input type="number" th:field="*{carbonhydrates}" id="carbonhydrates" placeholder="Углеводы" />
+        </div>
+        <p></p>
+
+        <div class="pure-controls">
+            <button type="submit" class="pure-button pure-button-primary">Редактировать продукт</button>
+        </div>
+    </fieldset>
+</form>
+</body>
+</html>

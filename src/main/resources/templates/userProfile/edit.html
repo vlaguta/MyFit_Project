@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" crossorigin="anonymous">
+    <style>
+        .header {
+            padding: 80px;
+            text-align: center;
+            background: #1abc9c;
+            color: white;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
+
+        .center {
+            align-content: center;
+            position: relative;
+        }
+
+        .inputButton {
+            position: relative;
+            width: 85%;
+            height: 50px;
+            display: block;
+            margin: 30px auto 30px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            border-radius: 5px;
+            color: white;
+            background-color: #0d6958;
+            border: none;
+            -webkit-box-shadow: 0 5px 0 #769f96;
+            -moz-box-shadow: 0 5px 0 #082f27;
+        }
+
+        #centerLayer {
+            margin-left: 40%; /* Отступ слева */
+            margin-top: 2%; /* Отступ сверху */
+            width: 25%; /* Ширина слоя */
+            background: #769f96; /* Цвет фона */
+            padding: 10px; /* Поля вокруг текста */
+        }
+
+        #centerrLayer {
+            margin-left: 40%; /* Отступ слева */
+            width: 25%; /* Ширина слоя */
+            background: #769f96; /* Цвет фона */
+            padding: 10px; /* Поля вокруг текста */
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>MyFit</h1>
+    <p>Здесь должна быть мотивирующая фраза</p>
+</div>
+<div class="navbar">
+    <br>
+</div>
+
+<form class="form" th:method="PATCH" th:action="@{/customers/{id}(id=${user.getId()})}" th:object="${user}">
+    <div class="form-group">
+        <div class="pure-control-group" id="centerLayer">
+            <label for="height"><h4>Рост</h4></label>
+            <input type="number" class="form-control" th:field="*{height}" name="height" id="height" placeholder="введите рост (см)">
+            <div style="color:red" th:if="${#fields.hasErrors('height')}" th:errors="*{height}">Height error</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="pure-control-group" id="centerrLayer">
+            <label for="weight"><h4>Вес</h4></label>
+            <input type="number" class="form-control" th:field="*{weight}" name="weight" id="weight" placeholder="введите вес (кг)">
+            <div style="color:red" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Weight error</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="pure-control-group" id="centerrLayer">
+            <label for="age"><h4>Возраст</h4></label>
+            <input type="number" class="form-control" th:field="*{age}" name="age" id="age" placeholder="введите возраст">
+            <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>
+        </div>
+    </div>
+    <br>
+
+    <div id="centerrLayer">
+        <p>Пол:</p>
+        <p><input name="sex" type="radio" value="MEN"> Мужской</p>
+        <p><input name="sex" type="radio" value="WOMEN"> Женский</p>
+    </div>
+
+    <div id="centerrLayer">
+        <p>Выбери свою активность:</p>
+        <p><input name="activity" type="radio" value="LOW"> Низкая (сидячий образ жизни, работа в офисе)</p>
+        <p><input name="activity" type="radio" value="MEDIUM"> Средняя (1-3 тренировки в неделю)</p>
+        <p><input name="activity" type="radio" value="HIGH"> Высокая (3 и более тренировок в неделю)</p>
+    </div>
+
+    <div class="pure-controls" id="centerrLayer">
+        <!--        <button type="submit" class="pure-button pure-button-primary"> Сохранить</button>-->
+        <input class="inputButton" type="submit" value="Сохранить"/>
+    </div>
+</form>
+
+<div class="pure-controls" id="centerrLayer">
+    <form th:action="@{/customers/profile}">
+        <input class="inputButton" type="submit" value="Назад"/>
+    </form>
+</div>
+</body>
+</html>

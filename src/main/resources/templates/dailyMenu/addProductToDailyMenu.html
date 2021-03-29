@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+    <script>
+
+    </script>
+</head>
+<body>
+<div class="container">
+    <form th:action="@{/products/search}" method="get">
+        <input type="text" th:name="name"/>
+        <input type="hidden" th:value="${eating}" th:name="eating"/>
+        <input type="submit" value="Поиск"/>
+    </form>
+</div>
+<br>
+<div th:each="product: ${products}">
+    <form th:method="post" th:object="${product}"  th:action="@{/daily-menus/{id}/products (id=${dailyMenu.id})}" >
+        <input type="hidden" th:value="*{id}" name="id"> </input>
+        <input th:value="*{name}" name="name" readonly="readonly"> </input>
+        <input th:value="*{nominalCalories}" name="calories" readonly="readonly"> </input>
+        <input th:value="*{protein}" name="protein" readonly="readonly"> </input>
+        <input th:value="*{fat}" name="fat" readonly="readonly"> </input>
+        <input th:value="*{carbonhydrates}" name="carbonhydrates" readonly="readonly"> </input>
+        <input th:value="*{weight}" name="weight" required="required"> </input>
+        <input type="hidden" th:value="${eating}" name="eating" id="eating"> </input>
+        <button class="submit-button" type="submit">+</button>
+    </form>
+</div>
+</body>
+</html>

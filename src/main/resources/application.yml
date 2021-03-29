@@ -1,0 +1,27 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    url: "jdbc:postgresql://localhost:54320/postgres"
+    username: user
+    password: pass
+
+  http:
+      multipart:
+        max-file-size: 30MB
+        max-request-size: 30MB
+
+#    spring:
+#      mvc:
+#        static-path-pattern=/uploads/**:
+
+logging:
+  pattern:
+    level: TRACE
+    org.springframework.transaction: trace
+    org.springframework.web: trace
+    guru.springframework.controllers: trace
+    org.hibernate: trace

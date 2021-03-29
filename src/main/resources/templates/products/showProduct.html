@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+</head>
+<body>
+
+<!--<form method="POST" th:object = "${productt}" th:action="@{/daily-menus/{id}/products (id=${dailyMenu.id})}">-->
+<!--    -->
+<!--    <button type="submit" name="submit" value="value" class="link-button">+</button>-->
+<!--</form>-->
+
+<!--<tr  th:each="product : ${products}">-->
+
+<!--&lt;!&ndash;    <form method="POST" th:action="@{/daily-menus/{id}/products (id=${dailyMenu.id})}">&ndash;&gt;-->
+<!--&lt;!&ndash;        <button type="submit" name="submit" value="value" class="link-button">+</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    </form>&ndash;&gt;-->
+
+<!--    <td><span th:text="${product.name}">  </span></td>-->
+<!--    <td><span th:text="${product.calories}">  </span></td>-->
+<!--    <td><span th:text="${product.protein}">  </span></td>-->
+<!--    <td><span th:text="${product.fat}">  </span></td>-->
+<!--    <td><span th:text="${product.carbonhydrates}">  </span></td>-->
+<!--    &lt;!&ndash;    <td><a th:href="@{/daily-menus/{id}/products (id=${dailyMenu.id})}">+</a></td>&ndash;&gt;-->
+<!--</tr>-->
+
+
+<div th:each="product: ${products}">
+    <form th:method="post" th:object="${product}" th:action="@{/daily-menus/{id}/products (id=${dailyMenu.id})}">
+        <input th:value="*{name}" name="name"> </input>
+        <input th:value="*{calories}" name="calories"> </input>
+        <input th:value="*{protein}" name="protein"> </input>
+        <input th:value="*{fat}" name="fat"> </input>
+        <input th:value="*{carbonhydrates}" name="carbonhydrates"> </input>
+        <button class="submit-button" type="submit">+</button>
+    </form>
+</div>
+<!--</th:block>-->
+<!--<form th:method="post" th:object="${product}" th:action="@{/daily-menus/{id}/products (id=${dailyMenu.id})}">-->
+<!--    <input th:field="*{name}"> </input>-->
+<!--    <input th:field="*{calories}"> </input>-->
+<!--    <input th:field="*{protein}"> </input>-->
+<!--    <input th:field="*{fat}"> </input>-->
+<!--    <input th:field="*{carbonhydrates}"> </input>-->
+<!--    <button class="submit-button" type="submit">+</button>-->
+<!--</form>-->
+
+<!--<th:block th:each="product: ${products}">-->
+<!--    <form th:method="post" th:object="${product}" th:action="@{/daily-menus/{id}/products (id=${dailyMenu.id})}">-->
+<!--        <fieldset>-->
+<!--            <div>-->
+<!--                <label for="name">Калорийность</label>-->
+<!--                <input type="text" th:field="*{name}" id="name"/>-->
+<!--            </div>-->
+<!--            <input type="number" th:field="*{calories}" id="calories"/>-->
+<!--            <input type="number" th:field="*{fat}" id="fat"/>-->
+<!--            <input type="number" th:field="*{carbonhydrates}" id="carbonhydrates"/>-->
+<!--            <input type="number" th:field="*{id}" id="id"/>-->
+<!--            <button class="submit-button" type="submit">+</button>-->
+<!--        </fieldset>-->
+<!--    </form>-->
+<!--</th:block>-->
+
+
+<!--<p th:text="${product.getId()}">VALUE</p>-->
+
+<!--<a th:href="@{/products/{id}/edit(id=${product.getId()})}">Edit</a>-->
+
+<!--<form th:method="DELETE" th:action="@{/products/{id}(id=${product.getId()})}">-->
+<!--    <input type="submit" value="Delete"/>-->
+<!--</form>-->
+
+
+<!--<th:block th:each="product: ${products}">-->
+<!--        <td><span th:text="${product.name}">  </span></td>-->
+<!--        <td><span th:text="${product.calories}">  </span></td>-->
+<!--        <td><span th:text="${product.protein}">  </span></td>-->
+<!--        <td><span th:text="${product.fat}">  </span></td>-->
+<!--        <td><span th:text="${product.carbonhydrates}">  </span></td>-->
+<!--    </form>-->
+<!--</th:block>-->
+
+<!--<form th:method="POST" th:action="@{/daily-menus/{id}/products (id=${dailyMenu.id})}" th:object="${product}">-->
+<!--    <fieldset>-->
+<!--        <div class="pure-control-group">-->
+<!--            <label for="name">Название продукта: </label>-->
+<!--            <input type="text" th:field="*{name}" id="name" placeholder="Название продукта" />-->
+<!--        </div>-->
+<!--        <p></p>-->
+<!--        <div class="pure-control-group">-->
+<!--            <label for="calories">Калорийность</label>-->
+<!--            <input type="number"  th:field="*{calories}" id="calories" placeholder="Калорийность" />-->
+<!--        </div>-->
+<!--        <p></p>-->
+
+<!--        <div class="pure-control-group">-->
+<!--            <label for="protein">Белки</label>-->
+<!--            <input type="number" th:field="*{protein}" id="protein" placeholder="Белки" />-->
+<!--        </div>-->
+<!--        <p></p>-->
+
+<!--        <div class="pure-control-group">-->
+<!--            <label for="fat">Жиры</label>-->
+<!--            <input type="number" th:field="*{fat}" id="fat" placeholder="Жиры" />-->
+<!--        </div>-->
+<!--        <p></p>-->
+
+<!--        <div class="pure-control-group">-->
+<!--            <label for="carbonhydrates">Углеводы </label>-->
+<!--            <input type="number" th:field="*{carbonhydrates}" id="carbonhydrates" placeholder="Углеводы" />-->
+<!--        </div>-->
+<!--        <p></p>-->
+
+<!--        <div class="pure-controls">-->
+<!--            <button type="submit" class="pure-button pure-button-primary">Добавить продукт</button>-->
+<!--        </div>-->
+<!--    </fieldset>-->
+<!--</form>-->
+</body>
+</html>

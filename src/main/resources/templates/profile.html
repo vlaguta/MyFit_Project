@@ -1,0 +1,286 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Page Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Style the body */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+        }
+
+        /* Header/logo Title */
+        .header {
+            padding: 80px;
+            text-align: center;
+            background: #1abc9c;
+            color: white;
+        }
+
+        /* Increase the font size of the heading */
+        .header h1 {
+            font-size: 40px;
+        }
+
+        /* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
+
+        /* Style the navigation bar links */
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+
+        /* Right-aligned link */
+        .navbar a.right {
+            float: right;
+        }
+
+        /* Change color on hover */
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Active/current link */
+        .navbar a.active {
+            background-color: #666;
+            color: white;
+        }
+
+        /* Column container */
+        .row {
+            display: -ms-flexbox; /* IE10 */
+            display: flex;
+            -ms-flex-wrap: wrap; /* IE10 */
+            flex-wrap: wrap;
+        }
+
+        /* Create two unequal columns that sits next to each other */
+        /* Sidebar/left column */
+        .side {
+            -ms-flex: 30%; /* IE10 */
+            flex: 30%;
+            background-color: #f1f1f1;
+            padding: 20px;
+        }
+
+        /* Main column */
+        .main {
+            -ms-flex: 70%; /* IE10 */
+            flex: 70%;
+            background-color: white;
+            padding: 20px;
+        }
+
+        /* Fake image, just for this example */
+        .fakeimg {
+            background-color: #aaa;
+            width: 100%;
+            padding: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background: #ddd;
+        }
+
+        /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 700px) {
+            .row {
+                flex-direction: column;
+            }
+        }
+
+        /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+        @media screen and (max-width: 400px) {
+            .navbar a {
+                float: none;
+                width: 100%;
+            }
+        }
+
+
+        body {
+            color: #3b3b3b;
+            background: #3b3b3b;
+            font: 1em 'Open Sans', sans-serif;
+        }
+
+        h1, h2, h3 {
+            font-weight: bolder;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        #content {
+            overflow: hidden;
+            background: white;
+            box-sizing: border-box;
+            width: 80%;
+            padding: 1em 5%;
+            margin: 2em auto;
+            box-shadow: 0.1em 0 2em black;
+        }
+
+        #content .thumbnail {
+            margin-bottom: 1em;
+        }
+
+        #content h2 {
+            font-size: 1.25em;
+            margin-bottom: 1em;
+        }
+
+        #content p {
+            margin-bottom: 1em;
+            line-spacing: 1.5;
+        }
+
+        #content ul {
+            margin: 0 auto 1em;
+        }
+
+        #content ul li {
+            border-bottom: 1px solid;
+            padding-bottom: 1em;
+        }
+
+        header {
+            margin: 0 0 1em;
+            overflow: hidden;
+        }
+
+        header h1 {
+            float: left;
+        }
+
+        header #view-control {
+            float: right;
+        }
+
+        .view-grid li {
+            width: 48%;
+            margin: 0 4% 2em 0;
+            float: left;
+        }
+
+        .view-grid li:nth-child(even) {
+            margin-right: 0;
+        }
+
+        .view-grid li .thumbnail img {
+            width: 100%;
+            height: auto;
+        }
+
+        .view-list li {
+            display: block;
+            clear: float;
+            overflow: hidden;
+            margin: 0 auto 2em;
+        }
+
+        .view-list li .thumbnail {
+            width: 30%;
+            margin: 0 5% 0 0;
+            float: left;
+        }
+
+        .view-list li .thumbnail img {
+            width: 100%;
+        }
+
+        .view-list li h2, .view-list li .excerpt, .view-list li .byline {
+            width: 65%;
+            float: right;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="header">
+    <h1>MyFit</h1>
+    <p>Здесь должна быть мотивирующая фраза</p>
+</div>
+
+<div class="navbar">
+    <a href="#" class="active">Главная страница</a>
+    <a th:href="@{/customers/profile}">Моя страница</a>
+    <a th:href="@{/daily-menus}">Дневник питания</a>
+    <a th:href="@{/food-diaries}">Журнал</a>
+    <a th:href="@{/products}">Таблица продуктов</a>
+    <p th:if="${customer== null}"><a th:href="@{/registration}" class="right">Регистрация</a></p>
+    <p th:if="${customer!= null}"><a th:href="@{/logout}" class="right">Выйти из аккаунта</a></p>
+    <a th:href="@{/login}" class="right">Авторизация</a>
+</div>
+
+<div class="row">
+    <div class="main">
+        <h2 th:text="#{news}"></h2>
+        <div class="inputButton">
+            <form th:action="@{/posts/new}" method="get">
+                <input class="inputButton" type="submit" th:value="#{add_post}"/>
+            </form>
+        </div>
+        <body>
+        <tr th:each="post: ${posts}">
+            <td th:text="${post.customer.login}"/>
+            <p th:text="${#temporals.format(post.createdDate, 'dd-MM-yyyy HH:mm')}"></p>
+            <td th:text="${post.text}"/>
+            <div>
+                <p th:if="${post.photo == null}"></p>
+                <p th:if="${post.photo != null}"><img th:src="${post.photo.url}" width="400" height="444"/></p>
+            </div>
+        </tr>
+        </body>
+        <br>
+        </tr>
+    </div>
+</div>
+
+
+<!--<section>-->
+<!--    <ul id="post-list">-->
+<!--        <li>-->
+<!--            <tr th:each="post: ${posts}">-->
+<!--            <div class="thumbnail">-->
+<!--                <p th:if="${post.photo == null}"></p>-->
+<!--                <p th:if="${post.photo != null}"><img th:src="${post.photo.url}" width="300" height="333"/></p>-->
+<!--            </div>-->
+<!--                <td th:text="${post.customer.login}"/>-->
+<!--                <p th:text="${#temporals.format(post.createdDate, 'dd-MM-yyyy HH:mm')}"></p>-->
+<!--            <div class="excerpt">-->
+<!--                <td th:text="${post.text}"/>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</section>-->
+
+
+
+</body>
+</html>

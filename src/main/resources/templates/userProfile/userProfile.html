@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .header {
+            padding: 80px;
+            text-align: center;
+            background: #1abc9c;
+            color: white;
+        }
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
+
+        .image{
+            width: 27%;
+            hight: 27%;
+            }
+
+    </style>
+</head>
+
+<div class="header">
+    <h1>MyFit</h1>
+    <p>Здесь должна быть мотивирующая фраза</p>
+</div>
+<div class="navbar">
+</div>
+<hr>
+<div class="container bootstrap snippet">
+    <div class="row">
+        <div class="col-sm-10"><h1><a th:text="${user.login}"></a></h1></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+
+
+            <!--            <div class="text-center">-->
+            <!--                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">-->
+            <!--                <input type="file" class="text-center center-block file-upload">-->
+            <!--                <tr><input type="submit" value="Загрузить" /></tr>-->
+            <!--            </div>-->
+            <!--            </hr><br>-->
+
+            <div>
+                <form method="POST" enctype="multipart/form-data" action="/upload">
+                    <table>
+                            <img th:src="${(photo != null && photo.url != null) ? photo.url : '/ava.jpg'}" width="200" height="222"/>
+                            <tr>
+                                <td><input type="file" name="file"/></td>
+                            </tr>
+                            <tr>
+                                <td><input type="submit" value="Загрузить"/></td>
+                            </tr>
+                    </table>
+                </form>
+            </div>
+
+
+        </div><!--/col-3-->
+        <div class="col-sm-9">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Мои данные</a></li>
+<!--                <li><a data-toggle="tab" href="#messages">Изменить данные</a></li>-->
+
+                <div class="inputButton">
+                    <form th:action="@{/customers/{id}/edit (id=${user.id})}" th:method="get">
+                        <input class="inputButton" type="submit" value="Изменить данные"/>
+                    </form>
+                </div>
+                <div class="inputButton">
+                    <form th:action="@{/profile}" th:method="get">
+                        <input class="inputButton" type="submit" value="Вернуться на главную"/>
+                    </form>
+                </div>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="home">
+                    <hr>
+                    <form class="form" action="##" method="post" id="registrationForm">
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="first_name"><h4>Вес: <a th:text="${user.weight}"></a></h4></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="last_name"><h4>Рост: <a th:text="${user.height}"></a></h4></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="phone"><h4>Возраст: <a th:text="${user.age}"></a></h4></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="mobile"><h4>Активность:<a th:text="${user.activity}"></a></h4></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="email"><h4>Пол:<a th:text="${user.sex}"></a></h4></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-xs-6">
+                                <label for="password"><h4>Базовый обмен веществ: <a th:text="${user.basicMetabolism}"></a></h4></label>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <label for="password"><h4>Суточная калорийность для снижения веса: <a th:text="${user.weightLossCalories}"></a></h4></label>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <label for="password"><h4>Суточная калорийность для поддержания веса: <a th:text="${user.weightMaintainCalories}"></a></h4></label>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <label for="password"><h4>Суточная калорийность для набора веса: <a th:text="${user.weightGainCalories}"></a></h4></label>
+                            </div>
+
+                        </div>
+                    </form>
+                    <hr>
+
+                </div>
+                <div class="tab-pane" id="messages">
+
+                    <hr>
+<!--                    <form class="form" th:method="PATCH" th:action="@{/customers/{id}(id=${user.getId()})}" th:object="${user}">-->
+<!--                        <div class="form-group">-->
+
+<!--                            <div class="col-xs-6">-->
+<!--                                <label for="height"><h4>Рост</h4></label>-->
+<!--                                <input type="number" class="form-control" th:field="*{height}" name="height" id="height" placeholder="введите рост (см)">-->
+<!--                                <div th:if="${#fields.hasErrors('height')}" th:errors="*{height}">Height error</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+
+<!--                            <div class="col-xs-6">-->
+<!--                                <label for="weight"><h4>Вес</h4></label>-->
+<!--                                <input type="number" class="form-control" th:field="*{weight}" name="weight" id="weight" placeholder="введите вес (кг)">-->
+<!--                                <div th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Weight error</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="form-group">-->
+
+<!--                            <div class="col-xs-6">-->
+<!--                                <label for="age"><h4>Возраст</h4></label>-->
+<!--                                <input type="number" class="form-control" th:field="*{age}" name="age" id="age" placeholder="введите возраст">-->
+<!--                                <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <br>-->
+
+<!--                        <p>Пол:</p>-->
+<!--                        <p><input name="sex" type="radio" value="MEN"> Мужской</p>-->
+<!--                        <p><input name="sex" type="radio" value="WOMEN"> Женский</p>-->
+<!--                        &lt;!&ndash;                        <p><input type="submit" value="Выбрать"></p>&ndash;&gt;-->
+
+<!--                        <p>Выбери свою активность:</p>-->
+<!--                        <p><input name="activity" type="radio" value="LOW"> Низкая (сидячий образ жизни, работа в офисе)</p>-->
+<!--                        <p><input name="activity" type="radio" value="MEDIUM"> Средняя (1-3 тренировки в неделю)</p>-->
+<!--                        <p><input name="activity" type="radio" value="HIGH"> Высокая (3 и более тренировок в неделю)</p>-->
+<!--                        <div class="pure-controls">-->
+<!--                            <button type="submit" class="pure-button pure-button-primary"> Сохранить</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

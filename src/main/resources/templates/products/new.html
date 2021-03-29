@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update product</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"  crossorigin="anonymous">
+    <style>
+        .header {
+            padding: 80px;
+            text-align: center;
+            background: #1abc9c;
+            color: white;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
+        .center{
+            align-content: center;
+            position: relative;
+        }
+        .inputButton {
+            position: relative;
+            width: 85%;
+            height: 50px;
+            display: block;
+            margin: 30px auto 30px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            border-radius: 5px;
+            color: white;
+            background-color: #0d6958;
+            border: none;
+            -webkit-box-shadow: 0 5px 0 #769f96;
+            -moz-box-shadow: 0 5px 0 #082f27;
+        }
+
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>MyFit</h1>
+    <p>Здесь должна быть мотивирующая фраза</p>
+</div>
+<div class="navbar">
+</div>
+<div class="center">
+<form class="pure-form pure-form-aligned" th:method="POST" th:action="@{/products}" th:object="${product}">
+    <fieldset>
+        <div class="pure-control-group">
+            <label for="name">Название продукта: </label>
+            <input type="text" th:field="*{name}" id="name" placeholder="Название продукта" required />
+        </div>
+        <p></p>
+        <div class="pure-control-group">
+            <label for="calories">Калорийность</label>
+            <input type="number"  th:field="*{calories}" id="calories" placeholder="Калорийность" required />
+            <div style="color:red" th:if="${#fields.hasErrors('calories')}" th:errors="*{calories}">Height error</div>
+        </div>
+        <p></p>
+
+        <div class="pure-control-group">
+            <label for="protein">Белки</label>
+            <input type="number" th:field="*{protein}" id="protein" placeholder="Белки" required />
+            <div style="color:red" th:if="${#fields.hasErrors('protein')}" th:errors="*{protein}">Height error</div>
+        </div>
+        <p></p>
+
+        <div class="pure-control-group">
+            <label for="fat">Жиры</label>
+            <input type="number" th:field="*{fat}" id="fat" placeholder="Жиры" required/>
+            <div style="color:red" th:if="${#fields.hasErrors('fat')}" th:errors="*{fat}">Height error</div>
+        </div>
+        <p></p>
+
+        <div class="pure-control-group">
+            <label for="carbonhydrates">Углеводы </label>
+            <input type="number" th:field="*{carbonhydrates}" id="carbonhydrates" placeholder="Углеводы" />
+            <div style="color:red" th:if="${#fields.hasErrors('carbonhydrates')}" th:errors="*{carbonhydrates}">Height error</div>
+
+        </div>
+        <p></p>
+
+        <div class="pure-controls">
+            <button type="submit" class="pure-button pure-button-primary">Добавить продукт</button>
+        </div>
+    </fieldset>
+</form>
+    </div>
+</body>
+</html>
