@@ -13,6 +13,7 @@ public class CustomerConverter {
         return CustomerDto.builder()
                 .id(customer.getId())
                 .name(customer.getName())
+                .login(customer.getLogin())
                 .age(customer.getAge())
                 .weight(customer.getWeight())
                 .height(customer.getHeight())

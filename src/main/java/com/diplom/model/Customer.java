@@ -56,9 +56,8 @@ public class Customer implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "daily_menu_id")
-    private DailyMenu dailyMenu;
+    @OneToMany(mappedBy = "customer")
+    private Set<DailyMenu> dailyMenus;
 
     @OneToMany(mappedBy = "customer")
     private Set<Post> posts;

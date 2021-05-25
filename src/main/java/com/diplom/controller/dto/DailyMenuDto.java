@@ -15,7 +15,6 @@ import java.util.List;
 public class DailyMenuDto {
 
     private int id;
-    private String name;
     private List<ProductDto> breakfast;
     private List<ProductDto> dinner;
     private List<ProductDto> supper;

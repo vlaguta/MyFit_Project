@@ -10,7 +10,7 @@ public class DailyMenuConverter {
     public static DailyMenuDto convertDailyMenuEntityToDailyMenuDto(DailyMenu dailyMenu) {
 
         return DailyMenuDto.builder()
-                .name(dailyMenu.getName())
+                .id(dailyMenu.getId())
                 .generalCalories(dailyMenu.getGeneralCalories())
                 .generalProteins(dailyMenu.getGeneralProteins())
                 .generalFats(dailyMenu.getGeneralFats())
@@ -22,7 +22,7 @@ public class DailyMenuConverter {
     public static DailyMenu convertDailyMenuDtoToDailyMenuEntity(DailyMenuDto dailyMenuDto) {
 
         return DailyMenu.builder()
-                .name(dailyMenuDto.getName())
+                .id(dailyMenuDto.getId())
                 .generalCalories(dailyMenuDto.getGeneralCalories())
                 .generalProteins(dailyMenuDto.getGeneralProteins())
                 .generalFats(dailyMenuDto.getGeneralFats())

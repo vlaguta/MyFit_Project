@@ -3,16 +3,24 @@ spring:
     hibernate:
       ddl-auto: none
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
+  thymeleaf: # Thymeleaf
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    prefix: file:src/main/resources/templates/
+  web:
+    resources: # Static resources
+      static-locations: file:src/main/resources/static/
+      cache:
+        period: 0
   datasource:
     url: "jdbc:postgresql://localhost:54320/postgres"
     username: user
     password: pass
-
   http:
-      multipart:
-        max-file-size: 30MB
-        max-request-size: 30MB
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
 
 #    spring:
 #      mvc:

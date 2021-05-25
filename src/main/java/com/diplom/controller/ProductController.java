@@ -36,7 +36,7 @@ public class ProductController {
 
     @GetMapping("/new")
     public String newProduct(Model model) {
-        model.addAttribute("product", new Product());
+        model.addAttribute("product", new ProductDto());
         return "products/new";
     }
 

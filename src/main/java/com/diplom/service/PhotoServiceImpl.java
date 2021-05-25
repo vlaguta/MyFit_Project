@@ -21,7 +21,7 @@ public class PhotoServiceImpl implements PhotoService {
     private final PhotoRepository photoRepository;
     private final CustomerRepository customerRepository;
 
-    private final Path PhotoDirectoryPath = Paths.get("src/main/resources/static");
+    private final Path PhotoDirectoryPath = Paths.get("src/main/resources/static/images");
 
     public PhotoServiceImpl(PhotoRepository photoRepository, CustomerRepository customerRepository) {
         this.photoRepository = photoRepository;
@@ -40,7 +40,7 @@ public class PhotoServiceImpl implements PhotoService {
                                     .orElseThrow(() -> new BusinessException("Не удалось найти фото, не существует пользователя с логином:" + login)))
                             .build());
             photo.setName(file.getOriginalFilename());
-            photo.setUrl("/" + file.getOriginalFilename());
+            photo.setUrl("/images/" + file.getOriginalFilename());
             photoRepository.save(photo);
         } catch (Exception e) {
             LOGGER.error("Возникла ошибка при сохранении фото", e);
@@ -56,7 +56,7 @@ public class PhotoServiceImpl implements PhotoService {
 
     @Override
     public Photo getPhoto(int customerId) {
-        return photoRepository.findByCustomerId(customerId).orElseThrow(() -> new BusinessException("Не удалось найти пользователя customerId:" + customerId));
+        return photoRepository.findByCustomerId(customerId).orElse(null);
     }
 
     @Override
@@ -65,11 +65,11 @@ public class PhotoServiceImpl implements PhotoService {
             Files.copy(file.getInputStream(), this.PhotoDirectoryPath.resolve(file.getOriginalFilename()));
             Photo photo = new Photo();
             photo.setName(file.getOriginalFilename());
-            photo.setUrl("/" + file.getOriginalFilename());
+            photo.setUrl("/images" + file.getOriginalFilename());
             photoRepository.save(photo);
             return photo;
         } catch (Exception e) {
-            throw new RuntimeException("Не удалось сохранить фото");
+            throw new RuntimeException("Не удалось сохранить фото", e);
         }
     }
 

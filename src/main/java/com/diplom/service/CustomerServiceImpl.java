@@ -4,9 +4,11 @@ import com.diplom.Exceptions.BusinessException;
 import com.diplom.controller.dto.CustomerDto;
 import com.diplom.controller.dto.CustomerRegistrationDto;
 import com.diplom.model.Activity;
-import com.diplom.model.Sex;
 import com.diplom.model.Customer;
+import com.diplom.model.DailyMenu;
+import com.diplom.model.Sex;
 import com.diplom.repository.CustomerRepository;
+import com.diplom.repository.DailyMenuRepository;
 import com.diplom.repository.RoleRepository;
 import com.diplom.utils.CustomerConverter;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +42,8 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final DailyMenuService dailyMenuService;
+    private final DailyMenuRepository dailyMenuRepository;
 
     @Override
     public List<CustomerDto> getAllCustomer() {
@@ -67,8 +71,7 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean saveCustomer(CustomerRegistrationDto customerRegistrationDto) {
 
         Customer customer = convertCustomerRegistrationDtoToCustomerEntity(customerRegistrationDto);
-        Customer customerFromBd = customerRepository.findCustomerByLogin(customer.getLogin())
-                .orElseThrow(() -> new BusinessException("Не удалось найти пользователя"));
+        Customer customerFromBd = customerRepository.findCustomerByLogin(customer.getLogin()).orElse(null);
 
         if (customerFromBd != null) {
             return false;
@@ -77,6 +80,8 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setRoles(Collections.singleton(roleRepository.findByName("user")));
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         customerRepository.save(customer);
+        dailyMenuService.saveDailyMenu(customer);
+        //customer.setDailyMenu(dailyMenuRepository.getOne());
         return true;
     }
 
@@ -110,18 +115,24 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     private double getBasicMetabolism(CustomerDto customerDto) {
+
+        if (customerDto.getSex() == null) {
+            return 0;
+        }
+
         if (Sex.WOMEN == customerDto.getSex()) {
-            return WEIGHT_COEFFICIENT * customerDto.getWeight()
+            return Math.floor(WEIGHT_COEFFICIENT * customerDto.getWeight()
                     + HEIGHT_COEFFICIENT * customerDto.getHeight()
                     - AGE_COEFFICIENT * customerDto.getAge()
-                    - WOMEN_COEFFICIENT;
+                    - WOMEN_COEFFICIENT);
         } else {
-            return WEIGHT_COEFFICIENT * customerDto.getWeight()
+            return Math.floor(WEIGHT_COEFFICIENT * customerDto.getWeight()
                     + HEIGHT_COEFFICIENT * customerDto.getHeight()
                     - AGE_COEFFICIENT * customerDto.getAge()
-                    - MEN_COEFFICIENT;
+                    - MEN_COEFFICIENT);
         }
     }
+
     private CustomerDto setCaloriesForCustomerDto(CustomerDto customerDto) {
         customerDto.setBasicMetabolism(getBasicMetabolism(customerDto));
         customerDto.setWeightLossCalories(getWeightLossCalories(customerDto));
@@ -131,21 +142,25 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     private double getWeightLossCalories(CustomerDto customerDto) {
-        return getWeightMaintainCalories(customerDto) * WEIGHT_LOSS_COEFFICIENT;
+        return Math.floor(getWeightMaintainCalories(customerDto) * WEIGHT_LOSS_COEFFICIENT);
     }
 
     private double getWeightGainCalories(CustomerDto customerDto) {
-        return getWeightMaintainCalories(customerDto) * WEIGHT_GAIN_COEFFICIENT;
+        return Math.floor(getWeightMaintainCalories(customerDto) * WEIGHT_GAIN_COEFFICIENT);
     }
 
     private double getWeightMaintainCalories(CustomerDto customerDto) {
 
+        if (customerDto.getActivity() == null) {
+            return 0;
+        }
+
         if (Activity.LOW == customerDto.getActivity()) {
-            return getBasicMetabolism(customerDto) * LOW_ACTIVITY_COEFFICIENT;
+            return Math.floor(getBasicMetabolism(customerDto) * LOW_ACTIVITY_COEFFICIENT);
         } else if (Activity.MEDIUM == customerDto.getActivity()) {
-            return getBasicMetabolism(customerDto) * MEDIUM_ACTIVITY_COEFFICIENT;
+            return Math.floor(getBasicMetabolism(customerDto) * MEDIUM_ACTIVITY_COEFFICIENT);
         } else {
-            return getBasicMetabolism(customerDto) * HIGH_ACTIVITY_COEFFICIENT;
+            return Math.floor(getBasicMetabolism(customerDto) * HIGH_ACTIVITY_COEFFICIENT);
         }
     }
 }

@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.List;
@@ -30,8 +30,6 @@ public class DailyMenu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "name")
-    private String name;
     @Column(name = "created_date")
     private LocalDate createdDate;
     @ManyToMany(cascade = CascadeType.ALL)
@@ -40,8 +38,10 @@ public class DailyMenu {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products;
 
-    @OneToOne(optional = false, mappedBy = "dailyMenu")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
+
     @Column(name = "general_calories")
     private int generalCalories;
     @Column(name = "general_proteins")

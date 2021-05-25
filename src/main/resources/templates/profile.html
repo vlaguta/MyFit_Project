@@ -1,9 +1,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Page Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+
+        .icon_de {
+            float: left;
+            margin: 0;
+        }
 
         * {
             box-sizing: border-box;
@@ -29,7 +35,7 @@
         }
 
         /* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
-        .navbar {
+        .nnavbar {
             overflow: hidden;
             background-color: #333;
             position: sticky;
@@ -38,7 +44,7 @@
         }
 
         /* Style the navigation bar links */
-        .navbar a {
+        .nnavbar a {
             float: left;
             display: block;
             color: white;
@@ -49,23 +55,23 @@
 
 
         /* Right-aligned link */
-        .navbar a.right {
+        .nnavbar a.right {
             float: right;
         }
 
         /* Change color on hover */
-        .navbar a:hover {
+        .nnavbar a:hover {
             background-color: #ddd;
             color: black;
         }
 
         /* Active/current link */
-        .navbar a.active {
+        .nnavbar a.active {
             background-color: #666;
             color: white;
         }
 
-        /* Column container */
+         Column container
         .row {
             display: -ms-flexbox; /* IE10 */
             display: flex;
@@ -73,14 +79,7 @@
             flex-wrap: wrap;
         }
 
-        /* Create two unequal columns that sits next to each other */
-        /* Sidebar/left column */
-        .side {
-            -ms-flex: 30%; /* IE10 */
-            flex: 30%;
-            background-color: #f1f1f1;
-            padding: 20px;
-        }
+
 
         /* Main column */
         .main {
@@ -90,11 +89,46 @@
             padding: 20px;
         }
 
-        /* Fake image, just for this example */
+
+        body {
+            font-family: Arial;
+            padding: 20px;
+            background: #f1f1f1;
+        }
+
+        /* Create two unequal columns that floats next to each other */
+        /* Left column */
+        .leftcolumn {
+            float: left;
+            /*width: 7%;*/
+        }
+
+        /* Right column */
+        .rightcolumn {
+            float: left;
+            width: 25%;
+            padding-left: 20px;
+        }
+
+        /* Fake image */
         .fakeimg {
             background-color: #aaa;
             width: 100%;
             padding: 20px;
+        }
+
+        /* Add a card effect for articles */
+        .card {
+            background-color: white;
+            padding: 50px;
+            margin-top: 30px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
         }
 
         /* Footer */
@@ -102,121 +136,16 @@
             padding: 20px;
             text-align: center;
             background: #ddd;
+            margin-top: 20px;
         }
 
-        /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
-        @media screen and (max-width: 700px) {
-            .row {
-                flex-direction: column;
-            }
-        }
-
-        /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-        @media screen and (max-width: 400px) {
-            .navbar a {
-                float: none;
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 800px) {
+            .leftcolumn, .rightcolumn {
                 width: 100%;
+                padding: 0;
             }
         }
-
-
-        body {
-            color: #3b3b3b;
-            background: #3b3b3b;
-            font: 1em 'Open Sans', sans-serif;
-        }
-
-        h1, h2, h3 {
-            font-weight: bolder;
-        }
-
-        h1 {
-            font-size: 2em;
-        }
-
-        #content {
-            overflow: hidden;
-            background: white;
-            box-sizing: border-box;
-            width: 80%;
-            padding: 1em 5%;
-            margin: 2em auto;
-            box-shadow: 0.1em 0 2em black;
-        }
-
-        #content .thumbnail {
-            margin-bottom: 1em;
-        }
-
-        #content h2 {
-            font-size: 1.25em;
-            margin-bottom: 1em;
-        }
-
-        #content p {
-            margin-bottom: 1em;
-            line-spacing: 1.5;
-        }
-
-        #content ul {
-            margin: 0 auto 1em;
-        }
-
-        #content ul li {
-            border-bottom: 1px solid;
-            padding-bottom: 1em;
-        }
-
-        header {
-            margin: 0 0 1em;
-            overflow: hidden;
-        }
-
-        header h1 {
-            float: left;
-        }
-
-        header #view-control {
-            float: right;
-        }
-
-        .view-grid li {
-            width: 48%;
-            margin: 0 4% 2em 0;
-            float: left;
-        }
-
-        .view-grid li:nth-child(even) {
-            margin-right: 0;
-        }
-
-        .view-grid li .thumbnail img {
-            width: 100%;
-            height: auto;
-        }
-
-        .view-list li {
-            display: block;
-            clear: float;
-            overflow: hidden;
-            margin: 0 auto 2em;
-        }
-
-        .view-list li .thumbnail {
-            width: 30%;
-            margin: 0 5% 0 0;
-            float: left;
-        }
-
-        .view-list li .thumbnail img {
-            width: 100%;
-        }
-
-        .view-list li h2, .view-list li .excerpt, .view-list li .byline {
-            width: 65%;
-            float: right;
-        }
-
     </style>
 
 </head>
@@ -224,63 +153,71 @@
 
 <div class="header">
     <h1>MyFit</h1>
-    <p>Здесь должна быть мотивирующая фраза</p>
-</div>
+    <p th:text="#{phrase}"></p>
+    <div class="icon_de">
+        <p align="left"><a th:href="@{/profile?lang=en}"><img src="/images/united_kingdom_glossy_square_icon_64.png" width="48" height="40"></a></p>
+    </div>
 
-<div class="navbar">
-    <a href="#" class="active">Главная страница</a>
-    <a th:href="@{/customers/profile}">Моя страница</a>
-    <a th:href="@{/daily-menus}">Дневник питания</a>
-    <a th:href="@{/food-diaries}">Журнал</a>
-    <a th:href="@{/products}">Таблица продуктов</a>
-    <p th:if="${customer== null}"><a th:href="@{/registration}" class="right">Регистрация</a></p>
-    <p th:if="${customer!= null}"><a th:href="@{/logout}" class="right">Выйти из аккаунта</a></p>
-    <a th:href="@{/login}" class="right">Авторизация</a>
-</div>
-
-<div class="row">
-    <div class="main">
-        <h2 th:text="#{news}"></h2>
-        <div class="inputButton">
-            <form th:action="@{/posts/new}" method="get">
-                <input class="inputButton" type="submit" th:value="#{add_post}"/>
-            </form>
-        </div>
-        <body>
-        <tr th:each="post: ${posts}">
-            <td th:text="${post.customer.login}"/>
-            <p th:text="${#temporals.format(post.createdDate, 'dd-MM-yyyy HH:mm')}"></p>
-            <td th:text="${post.text}"/>
-            <div>
-                <p th:if="${post.photo == null}"></p>
-                <p th:if="${post.photo != null}"><img th:src="${post.photo.url}" width="400" height="444"/></p>
-            </div>
-        </tr>
-        </body>
-        <br>
-        </tr>
+    <div class="icon_de">
+        <p align="left"><a th:href="@{/profile?lang=ru}"><img src="/images/russia_glossy_square_icon_64.png" width="48" height="40"></a></p>
     </div>
 </div>
 
+<div class="nnavbar">
+    <a href="#" class="active" th:text="#{main_page}"></a>
+    <a th:href="@{/customers/profile}" th:text="#{my_page}"></a>
+    <a th:href="@{/daily-menus}" th:text="#{food_diary}"></a>
+    <a th:href="@{/food-diaries}" th:text="#{journal}"></a>
+    <a th:href="@{/products}" th:text="#{product_table}"></a>
+    <p th:if="${customer== null}"><a th:href="@{/registration}" class="right" th:text="#{registration}"></a></p>
+    <p th:if="${customer!= null}"  ><a th:href="@{/logout}" class="right" th:text="#{logout}"></a></p>
+    <a th:href="@{/login}" class="right" th:text="#{authorization}"></a>
+</div>
 
-<!--<section>-->
-<!--    <ul id="post-list">-->
-<!--        <li>-->
-<!--            <tr th:each="post: ${posts}">-->
-<!--            <div class="thumbnail">-->
+<!--<div class="row">-->
+<!--    <div class="main">-->
+<!--        <h2 th:text="#{news}"></h2>-->
+<!--        <div class="inputButton">-->
+<!--            <form th:action="@{/posts/new}" method="get">-->
+<!--                <input class="inputButton" type="submit" th:value="#{add_post}"/>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--        <body>-->
+<!--        <tr th:each="post: ${posts}">-->
+<!--            <td th:text="${post.customer.login}"/>-->
+<!--            <p th:text="${#temporals.format(post.createdDate, 'dd-MM-yyyy HH:mm')}"></p>-->
+<!--            <td th:text="${post.text}"/>-->
+<!--            <div>-->
 <!--                <p th:if="${post.photo == null}"></p>-->
-<!--                <p th:if="${post.photo != null}"><img th:src="${post.photo.url}" width="300" height="333"/></p>-->
+<!--                <p th:if="${post.photo != null}"><img th:src="${post.photo.url}" width="400" height="444"/></p>-->
 <!--            </div>-->
-<!--                <td th:text="${post.customer.login}"/>-->
-<!--                <p th:text="${#temporals.format(post.createdDate, 'dd-MM-yyyy HH:mm')}"></p>-->
-<!--            <div class="excerpt">-->
-<!--                <td th:text="${post.text}"/>-->
-<!--            </div>-->
-<!--        </li>-->
-<!--    </ul>-->
-<!--</section>-->
+<!--        </tr>-->
+<!--        </body>-->
+<!--        <br>-->
+<!--        </tr>-->
+<!--    </div>-->
+<!--</div>-->
 
+<div class="row">
+    <h1 th:text="#{news}"></h1>
+    <div>
+        <div class="center">
+            <form th:action="@{/posts/new}" method="get">
+                <button type="submit" class="btn btn-outline-success"> <p th:text="#{add_post}"></p></button>
+            </form>
+        </div>
+    </div>
+    <div th:each="post: ${posts}" class="leftcolumn">
+        <div class="card">
+            <h3 th:text="${post.customer.login}"></h3>
+            <h4 th:text="${#temporals.format(post.createdDate, 'MMMM dd, yyyy')}"></h4>
+            <p th:text="${post.text}"></p>
+            <div th:if="${post.photo != null}"  style="height:300px; align-content: center">
+                <img th:src="${post.photo.url}" width="350" height="350"/>
+            </div>
 
-
+        </div>
+    </div>
+</div>
 </body>
 </html>

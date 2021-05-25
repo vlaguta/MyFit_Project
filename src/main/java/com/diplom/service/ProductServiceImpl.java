@@ -7,6 +7,7 @@ import com.diplom.utils.ProductConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll()
                 .stream()
                 .map(ProductConverter::convertProductEntityToDto)
+                .sorted(Comparator.comparing(ProductDto::getName))
                 .collect(Collectors.toList());
     }
 

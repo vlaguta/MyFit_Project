@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <style>
+
+        .icon_de {
+            float: left;
+            margin: 0;
+        }
+
         .inputButton {
             position: relative;
-            /*width: 20%;*/
-            /*right: 0;*/
-            /*height: 10px;*/
             display: block;
             margin: 30px auto 30px;
             -webkit-border-radius: 5px;
@@ -20,6 +24,7 @@
             border: none;
             -webkit-box-shadow: 0 5px 0 #769f96;
             -moz-box-shadow: 0 5px 0 #082f27;
+            float: right
         }
 
         .header {
@@ -29,13 +34,13 @@
             color: white;
         }
 
-        .navbar {
-            overflow: hidden;
-            background-color: #333;
-            position: sticky;
-            position: -webkit-sticky;
-            top: 0;
-        }
+        /*.nnavbar {*/
+        /*    overflow: hidden;*/
+        /*    background-color: #333;*/
+        /*    position: sticky;*/
+        /*    position: -webkit-sticky;*/
+        /*    top: 0;*/
+        /*}*/
 
         .tbl-header {
             background-color: rgba(255, 255, 255, 0.3);
@@ -55,7 +60,7 @@
 
         td, th {
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 2px solid #ccc;
             text-align: left;
             font-size: 18px;
         }
@@ -74,6 +79,50 @@
         [data-toggle="toggle"] {
             display: none;
         }
+
+        .nnavbar {
+            overflow: hidden;
+            background-color: #333;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
+
+        /* Style the navigation bar links */
+        .nnavbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+
+        /* Right-aligned link */
+        .nnavbar a.right {
+            float: right;
+        }
+
+        /* Change color on hover */
+        .nnavbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Active/current link */
+        .nnavbar a.active {
+            background-color: #666;
+            color: white;
+        }
+
+        Column container
+        .row {
+            display: -ms-flexbox; /* IE10 */
+            display: flex;
+            -ms-flex-wrap: wrap; /* IE10 */
+            flex-wrap: wrap;
+        }
     </style>
     <script>
         $(document).ready(function () {
@@ -86,32 +135,43 @@
 <body>
 <div class="header">
     <h1>MyFit</h1>
-    <p>Здесь должна быть мотивирующая фраза</p>
+    <p th:text="#{phrase}"></p>
+    <div class="icon_de">
+        <p align="left"><a th:href="@{/daily-menus?lang=en}"><img src="/images/united_kingdom_glossy_square_icon_64.png" width="48" height="40"></a></p>
+    </div>
+
+    <div class="icon_de">
+        <p align="left"><a th:href="@{/daily-menus?lang=ru}"><img src="/images/russia_glossy_square_icon_64.png" width="48" height="40"></a></p>
+    </div>
 </div>
-<div class="navbar">
-    <label></label>
-    <br>
-</div>
+    <div class="nnavbar">
+        <a th:href="@{/profile}" th:text="#{main_page}"></a>
+        <a th:href="@{/customers/profile}" th:text="#{my_page}"></a>
+        <a th:href="@{/daily-menus}" class="active" th:text="#{food_diary}"></a>
+        <a th:href="@{/food-diaries}" th:text="#{journal}"></a>
+        <a th:href="@{/products}" th:text="#{product_table}"></a>
+        <a th:href="@{/logout}" class="right" th:text="#{logout}"></a></p>
+    </div>
 
 <table>
     <thead>
     <tr>
-        <th>Наименование продукта</th>
-        <th>Калории на 100 г</th>
-        <th>Калории на порцию</th>
-        <th>Белки</th>
-        <th>Жиры</th>
-        <th>Углеводы</th>
+        <th><p th:text="#{productsName}"></p></th>
+        <th><p th:text="#{calories_For_100}"></p></th>
+        <th><p th:text="#{calories_For_Serving}"></p></th>
+        <th><p th:text="#{proteins}"></p></th>
+        <th><p th:text="#{fats}"></p></th>
+        <th><p th:text="#{carbonhydrates}"></p></th>
     </tr>
     </thead>
     <tbody>
     <tbody class="labels">
     <tr>
-        <td colspan="5">
-            <label>Завтрак</label>
-            <div class="inputButton">
-                <form th:action="@{/add}" method="get" >
-                    <button th:name="eating" th:value="BREAKFAST" style="float: right;">Добавить продукт </button>
+        <td colspan="6">
+            <label><p th:text="#{breakfast}"></label>
+            <div >
+                <form th:action="@{/add}" method="get">
+                    <button th:name="eating" th:value="BREAKFAST"  class="btn btn-outline-light" ><p th:text="#{add_product}"></button>
                 </form>
             </div>
         </td>
@@ -127,13 +187,14 @@
         <td><span th:text="${product.factualFat}">  </span></td>
         <td><span th:text="${product.factualCarbonhydrates}">  </span></td>
     </tr>
+    </tbody>
     <tbody class="labels">
     <tr>
-        <td colspan="5">
-            <label>Обед</label>
-            <div class="inputButton">
+        <td colspan="6">
+            <label><p th:text="#{dinner}"></label>
+            <div >
                 <form th:action="@{/add}" method="get">
-                    <button th:name="eating" th:value="DINNER" style="float: right;">Добавить продукт </button>
+                    <button th:name="eating" th:value="DINNER"  class="btn btn-outline-light" ><p th:text="#{add_product}"></button>
                 </form>
             </div>
         </td>
@@ -150,11 +211,11 @@
     </tr>
     <tbody class="labels">
     <tr>
-        <td colspan="5">
-            <label>Ужин</label>
-            <div class="inputButton">
+        <td colspan="6">
+            <label><p th:text="#{supper}"></label>
+            <div>
                 <form th:action="@{/add}" method="get">
-                    <button th:name="eating" th:value="SUPPER" style="float: right;">Добавить продукт </button>
+                    <button th:name="eating" th:value="SUPPER" class="btn btn-outline-light" ><p th:text="#{add_product}"></p></button>
                 </form>
             </div>
         </td>
@@ -172,21 +233,23 @@
     </tbody>
     <tbody class="labels">
     <tr>
-        <td colspan="5">
-            <label>Итого за день</label>
+        <td colspan="6">
+            <label><p th:text="#{total_for_the_day}"></label>
         </td>
     </tr>
     </tbody>
     <td></td>
-    <td><td><span th:text="${dailyMenu.generalCalories}">  </span></td></td>
+    <td>
+    <td><span th:text="${dailyMenu.generalCalories}">  </span></td>
+    </td>
     <td><span th:text="${dailyMenu.generalProteins}">  </span></td>
     <td><span th:text="${dailyMenu.generalFats}">  </span></td>
     <td><span th:text="${dailyMenu.generalCarbonhydrates}">  </span></td>
 </table>
 
-<div class="inputButton">
+<div>
     <form th:action="@{/profile}" method="get">
-        <input class="inputButton" type="submit" value="Назад"/>
+        <input class="inputButton" type="submit" th:value="#{back}"/>
     </form>
 </div>
 </body>

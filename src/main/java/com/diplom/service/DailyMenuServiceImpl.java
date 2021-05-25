@@ -22,6 +22,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.mapping;
@@ -37,7 +38,7 @@ public class DailyMenuServiceImpl implements DailyMenuService {
     @Override
     public DailyMenuDto getDailyMenuDto(String login) {
 
-        DailyMenu dailyMenu = dailyMenuRepository.findByCustomerLogin(login /* LocalDate.now()*/)
+        DailyMenu dailyMenu = dailyMenuRepository.findByCustomerLoginAndCreatedDate(login, LocalDate.now())
                 .orElseThrow(() -> new BusinessException("Не удалось найти Дневное меню"));
 
         Map<Eating, List<Product>> productByEating = getProductsByEating(dailyMenu);
@@ -57,8 +58,7 @@ public class DailyMenuServiceImpl implements DailyMenuService {
     @Override
     public List<ProductDto> getEatingProducts(List<Product> products, int dailyMenuId, Eating eating) {
 
-        return Optional.ofNullable(products)
-                .stream()
+        return Stream.ofNullable(products)
                 .flatMap(List::stream)
                 .map(ProductConverter::convertProductEntityToDto)
                 .map(productDto -> setFactualNutrientsForProductDto(dailyMenuId, eating, productDto))
@@ -86,7 +86,7 @@ public class DailyMenuServiceImpl implements DailyMenuService {
 
         DailyMenu dailyMenu = new DailyMenu();
         dailyMenu.setCreatedDate(LocalDate.now());
-        dailyMenu.setCustomer(customer);
+        dailyMenu.setCustomer(customerRepository.getOne(customer.getId()));
         dailyMenuRepository.save(dailyMenu);
     }
 
@@ -100,7 +100,7 @@ public class DailyMenuServiceImpl implements DailyMenuService {
         productDailyMenuService.save(productDailyMenuFromDb);
 
         DailyMenu dailyMenu = dailyMenuRepository.findById(dailyMenuId)
-                .orElseThrow(() -> new BusinessException("Не удалось найти Дневное меню"));
+                .orElseThrow(() -> new BusinessException("Не удалось найти Дневное меню id:"+ dailyMenuId));
 
         Map<Eating, List<Product>> productByEating = getProductsByEating(dailyMenu);
 
@@ -117,17 +117,17 @@ public class DailyMenuServiceImpl implements DailyMenuService {
         dailyMenu.setGeneralFats(getGeneralNutrients(breakfastsProducts, ProductDto::getFactualFat)
                 + getGeneralNutrients(dinnerProducts, ProductDto::getFactualFat)
                 + getGeneralNutrients(supperProducts, ProductDto::getFactualFat));
-        dailyMenu.setGeneralCarbonhydrates(getGeneralNutrients(breakfastsProducts, ProductDto::getCarbonhydrates)
-                + getGeneralNutrients(dinnerProducts, ProductDto::getCarbonhydrates)
-                + getGeneralNutrients(supperProducts, ProductDto::getCarbonhydrates));
+        dailyMenu.setGeneralCarbonhydrates(getGeneralNutrients(breakfastsProducts, ProductDto::getFactualCarbonhydrates)
+                + getGeneralNutrients(dinnerProducts, ProductDto::getFactualCarbonhydrates)
+                + getGeneralNutrients(supperProducts, ProductDto::getFactualCarbonhydrates));
         dailyMenuRepository.save(dailyMenu);
 
     }
 
     @Override
-    public List<DailyMenuDto> getAllDailyMenus() {
+    public List<DailyMenuDto> getAllDailyMenus(int customerId) {
 
-        return dailyMenuRepository.findAll()
+        return dailyMenuRepository.findAllByCustomerId(customerId)
                 .stream()
                 .map(DailyMenuConverter::convertDailyMenuEntityToDailyMenuDto)
                 .collect(Collectors.toList());

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.function.Function;
 
 public interface DailyMenuService {
+
     DailyMenuDto getDailyMenuDto(String login);
 
     List<ProductDto> getEatingProducts(List<Product> products, int dailyMenuId, Eating eating);
@@ -22,5 +23,5 @@ public interface DailyMenuService {
 
     void addProductToDailyMenu(int dailyMenuId, ProductDto productDto, Eating eating);
 
-    List<DailyMenuDto> getAllDailyMenus();
+    List<DailyMenuDto> getAllDailyMenus(int customerId);
 }

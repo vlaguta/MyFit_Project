@@ -19,8 +19,16 @@
             top: 0;
         }
         .center{
-            align-content: center;
-            position: relative;
+            /*align-content: center;*/
+            /*position: relative;*/
+            margin: 0;
+            background: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%)
+
         }
         .inputButton {
             position: relative;
@@ -57,9 +65,9 @@
         </div>
         <p></p>
         <div class="pure-control-group">
-            <label for="calories">Калорийность</label>
-            <input type="number"  th:field="*{calories}" id="calories" placeholder="Калорийность" required />
-            <div style="color:red" th:if="${#fields.hasErrors('calories')}" th:errors="*{calories}">Height error</div>
+            <label for="nominalCalories">Калорийность</label>
+            <input type="number"  th:field="*{nominalCalories}" id="nominalCalories" placeholder="Калорийность" required />
+            <div style="color:red" th:if="${#fields.hasErrors('nominalCalories')}" th:errors="*{nominalCalories}">Height error</div>
         </div>
         <p></p>
 
